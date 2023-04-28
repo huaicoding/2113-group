@@ -203,14 +203,20 @@ int main(){
                             cout << "please chooose an action: hit/stand" << endl;
                             string action;
                             cin >> action;
-                            while (player.calculate() <= 21){
+                            while (player.calculate() < 21){
                                 if (action == "hit"){
                                     player.add_card(dealer(min, max, head));
                                     cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
                                     cin >> action;
                                 }
                                 else if (action == "stand"){
-                                    
+                                    cout << "Total point: " << player.calculate() << endl;
+                                    break;
+                                }
+                                else{
+                                    cout << "Incorrect action, please enter the correct action." << endl; 
+                                    cin >> action;
+                                }      
                             }
                             if (player.calculate() > 21){
                                 cout << "Sorry, you lose" << endl;
