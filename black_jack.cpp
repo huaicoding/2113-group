@@ -186,6 +186,8 @@ int main(){
                         cin >> split;
                         if (split == "Y"){
                             // codes for split play
+                            vector<string>::iterator k = player.cards.begin();
+                            
                         }
                         else{
                             //codes2
