@@ -12,4 +12,5 @@ class Player{
         void clear_cards();
         vector<string> get_cards();
         int calculate();
+        void keep_first();
 };

@@ -39,3 +39,9 @@ int Player :: calculate(){
     }
     return sum;
 }
+
+void Player :: keep_first(){
+    // used in split, need to form two vectors, which only keep the first card.
+    vector <string>::iterator k = cards.begin();
+    cards.assign(k, k + 1);
+}

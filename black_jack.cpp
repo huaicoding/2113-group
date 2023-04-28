@@ -186,9 +186,24 @@ int main(){
                         cin >> split;
                         if (split == "Y"){
                             // codes for split play
-                            vector<string>::iterator k = player.cards.begin();
-                            
-                        }
+                            vector<int> results;
+                            player.keep_first();
+                            // repeating from 208-242(stand or hit);
+                            result.push_back(player.calculate());
+                            player.keep_first();
+                            // repeat
+                            result.push_back(player.calculate());
+                            if (result[0] > 21 && result[1] > 21){
+                                //两局全爆牌
+                                cout << "Sorry, you lose" << endl;
+                                player.balance -= 2*bet;
+                                player.clear_cards();
+                                banker.clear_cards();
+                            }
+                            else{
+                                //两个分别比，复制下面252-274，重复两次把两次分别比即可。
+                                
+                            }
                         else{
                             //codes2
                         }
@@ -200,6 +215,8 @@ int main(){
                         if (double_bet == "Y"){
                             bet *=2;
                             //codes need
+                            player.add_card(dealer(min, max, head));
+                            // starts to compare. need to repeat the comparision part, which can be put into a function.
                         }
                         else{
                             cout << "please chooose an action: hit/stand" << endl;
