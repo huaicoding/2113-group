@@ -197,15 +197,20 @@ int main(){
                         cin >> double_bet;
                         if (double_bet == "Y"){
                             bet *=2;
+                            //codes need
                         }
                         else{
                             cout << "please chooose an action: hit/stand" << endl;
                             string action;
                             cin >> action;
-                            while (action != "stand" && player.calculate() <= 21){
-                                player.add_card(dealer(min, max, head));
-                                cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
-                                cin >> action;
+                            while (player.calculate() <= 21){
+                                if (action == "hit"){
+                                    player.add_card(dealer(min, max, head));
+                                    cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
+                                    cin >> action;
+                                }
+                                else if (action == "stand"){
+                                    
                             }
                             if (player.calculate() > 21){
                                 cout << "Sorry, you lose" << endl;
