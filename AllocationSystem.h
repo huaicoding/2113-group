@@ -23,7 +23,7 @@ public:
 	AVL_Node* searchNode(int code);
 };
 
-class AllocationSystem: public AVL_Tree {
+class AllocationSystem: public BST_Tree {
 public:
 	void Initialisation(int code);
 	void Allocate(int random);
