@@ -1,12 +1,11 @@
 #include <iostream>
 #include <string>
+#include "AllocationSystem.h"
 using namespace std;
 
-treeNode* Insert(treeNode* currentNode, int key) {
+Node* BST_Tree::Insert(Node* &currentNode, int key) {
     if (currentNode == NULL) {
-        // Case 1: If the tree rooted at currentNode is empty
-        // To be implemented
-        currentNode = (treeNode*)malloc(sizeof(treeNode));
+        ;
         currentNode->key = key;
         currentNode->left = NULL;
         currentNode->right = NULL;
