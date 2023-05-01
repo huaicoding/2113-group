@@ -124,7 +124,26 @@ void loading(Card *&head){
     }
 }
 
-
+void hitStand(){
+    cout << "please chooose an action: hit/stand" << endl;
+    string action;
+    cin >> action;
+    while (player.calculate() < 21){
+        if (action == "hit"){
+            player.add_card(dealer(min, max, head));
+            cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
+            cin >> action;
+        }
+        else if (action == "stand"){
+            cout << "Total point: " << player.calculate() << endl;
+            break;
+        }
+        else{
+            cout << "Incorrect action, please enter the correct action." << endl; 
+            cin >> action;
+        }      
+    }
+}
 
 
 int main(){
@@ -195,9 +214,11 @@ int main(){
                             vector<int> results;
                             player.keep_first();
                             // repeating from 208-242(stand or hit);
+                            hitStand();
                             result.push_back(player.calculate());
                             player.keep_first();
                             // repeat
+                            hitStand();
                             result.push_back(player.calculate());
                             if (result[0] > 21 && result[1] > 21){
                                 //两局全爆牌
@@ -225,24 +246,7 @@ int main(){
                             // starts to compare. need to repeat the comparision part, which can be put into a function.
                         }
                         else{
-                            cout << "please chooose an action: hit/stand" << endl;
-                            string action;
-                            cin >> action;
-                            while (player.calculate() < 21){
-                                if (action == "hit"){
-                                    player.add_card(dealer(min, max, head));
-                                    cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
-                                    cin >> action;
-                                }
-                                else if (action == "stand"){
-                                    cout << "Total point: " << player.calculate() << endl;
-                                    break;
-                                }
-                                else{
-                                    cout << "Incorrect action, please enter the correct action." << endl; 
-                                    cin >> action;
-                                }      
-                            }
+                            hitStand();
                             if (player.calculate() > 21){
                                 cout << "Sorry, you lose" << endl;
                                 player.balance -= bet;
