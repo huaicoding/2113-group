@@ -2,6 +2,8 @@
 #include <string>
 #include <sstream>
 #include <vector> 
+#include <stdlib.h>
+#include <time.h> 
 #include "player.h"
 #include "banker.h"
 using namespace std;
@@ -14,6 +16,7 @@ struct Card{
 
 
 int random_num_generator(int min, int max){
+    srand((unsigned)time(NULL)); 
     int range = max - min + 1;
     return rand() % range + min;
 }
@@ -120,6 +123,9 @@ void loading(Card *&head){
         }
     }
 }
+
+
+
 
 int main(){
     int min = 0, max = 207, sum;
