@@ -8,15 +8,23 @@ BST_Tree::BST_Tree() : root(NULL){}
 Node* BST_Tree::insertNode(Node*& currentNode, int code) {
     if (currentNode == NULL) {
         currentNode = new Node(code, NULL, NULL);
-        currentNode->code = code;
-        currentNode->left = NULL;
-        currentNode->right = NULL;
     }
     if (code > (currentNode->code)) {
         currentNode->right = insertNode(currentNode->right, code);
+        if (height(currentNode->right) - height(currentNode->left) == 2){
+            if (code < currentNode->right->code)
+                currentNode = RL_Rotation(currentNode);
+            else
+                currentNode = RR_Rotation(currentNode);
     }
     else if (code < (currentNode->code)) {
         currentNode->left = insertNode(currentNode->left, code);
+        if (height(currentNode->left) - height(currentNode->right) == 2){
+            if (code < currentNode->left->code)
+                currentNode = LL_Rotation(currentNode);
+            else
+                currentNode = LR_Rotation(currentNode);
+        }
     }
     return currentNode;
 }
@@ -86,3 +94,13 @@ Node* BST_Tree::maximum(Node * currentNode) {
     else
         return maximum(currentNode->right);
 }
+
+void AllocationSystem::Initalisation(){
+    int min = 1;
+    int max = 208;
+    
+}
+
+void AllocateSystem::Allocate(int random){
+}
+
