@@ -170,6 +170,105 @@ void Banker(int &min, int &max, card *head){
     }
 }
 
+void normProcess(int &min, int &max, card *head, int bet){
+    hitStand(min, max, head);
+    if (player.calculate() > 21){
+        cout << "Sorry, you lose" << endl;
+        player.balance -= bet;
+    }
+    else{
+        Banker(min, max, head);
+        if (banker.calculate() > 21){
+            cout << "Congratulations! You win!" << endl;
+            player.balance += bet;
+        }
+        else{
+            player.balance += comparison(player.calculate(), banker.calculate(), bet);
+        }
+    }
+}
+
+void codes(int &min, int &max, card *head, int bet){
+    string a = player.get_cards()[0];
+    a.pop_back();
+    string b = player.get_cards()[1];
+    b.pop_back();
+    if (a == b){
+        string split;
+        cout << "Split the card(Input Y or N): " << endl;
+        cin >> split;
+        if (split == "Y"){
+            // codes for split play
+            vector<int> results;
+            player.keep_first();
+            // repeating from 208-242(stand or hit);
+            hitStand(min, max, head);
+            results.push_back(player.calculate());
+            player.keep_first();
+            // repeat
+            hitStand(min, max, head);
+            results.push_back(player.calculate());
+            if (results[0] > 21 && results[1] > 21){
+                //两局全爆牌
+                cout << "Sorry, you lose" << endl;
+                player.balance -= 2*bet;
+                
+            }
+            else{
+                //两个分别比，复制下面252-274，重复两次把两次分别比即可。
+                for ( int i = 0; i < 2; i ++){
+                    cout << "Hand " << i + 1 << endl;
+                    Banker(min, max, head);
+                    if ( results[i] > 21 && banker.calculate() > 21 ){
+                        cout << "Break even" << endl;
+                    }
+                    else if ( results[i] > 21 && banker.calculate() <= 21 ){
+                        cout << "Sorry, you lose" << endl;
+                        player.balance -= bet.
+                    }
+                    else if ( results[i] <= 21 && banker.calculate() > 21 ){
+                        cout << "Congratulations! You win!" << endl;
+                        player.balance += bet.
+                    }
+                    else{
+                        palyer.balance += comparison(results[i], banker.calculate(), bet);
+                    }
+                    
+                }
+            }
+            results.clear();
+        }
+        else{
+            //codes2
+            void normProcess(min, max, head, bet);
+        }
+    }
+    else{ //codes2
+        string double_bet;
+        cout << "Double the bet(Input Y or N): " << endl;
+        cin >> double_bet;
+        if (double_bet == "Y"){
+            bet *=2;
+            //codes need
+            player.add_card(dealer(min, max, head));
+            // starts to compare. need to repeat the comparision part, which can be put into a function.
+            Banker(min, max, head);
+            if (banker.calculate() > 21){
+                cout << "Congratulations! You win!" << endl;
+                player.balance += bet;
+            }
+            else{
+                player.balance += comparison(player.calculate(), banker.calculate(), bet);
+            }
+
+        }
+        else{
+            void normProcess(min, max, head, bet);
+        }
+    }
+}
+
+
 int main(){
     int min = 0, max = 207, sum;
     Player player;
@@ -217,87 +316,25 @@ int main(){
                     cin >> insurance;
                     if (insurance == "Y"){
                          if (banker.calculate() != 21){
+                            cout << "Youe lose the insurance!" << endl;
                             player.balance -= bet/2;
                             //codes
-                         }
+                            codes(min, max, head, bet);
+                        }
                     }
                     else{
-                            //codes
+                        //codes
+                        codes(min, max, head, bet);
                     }
                 }
                 else{ //codes
-                    string a = player.get_cards()[0];
-                    a.pop_back();
-                    string b = player.get_cards()[1];
-                    b.pop_back();
-                    if (a == b){
-                        string split;
-                        cout << "Split the card(Input Y or N): " << endl;
-                        cin >> split;
-                        if (split == "Y"){
-                            // codes for split play
-                            vector<int> results;
-                            player.keep_first();
-                            // repeating from 208-242(stand or hit);
-                            hitStand(min, max, head);
-                            result.push_back(player.calculate());
-                            player.keep_first();
-                            // repeat
-                            hitStand(min, max, head);
-                            result.push_back(player.calculate());
-                            if (result[0] > 21 && result[1] > 21){
-                                //两局全爆牌
-                                cout << "Sorry, you lose" << endl;
-                                player.balance -= 2*bet;
-                                player.clear_cards();
-                                banker.clear_cards();
-                            }
-                            else{
-                                //两个分别比，复制下面252-274，重复两次把两次分别比即可。
-                                
-                            }
-                        else{
-                            //codes2
-                        }
-                    }
-                    else{ //codes2
-                        string double_bet;
-                        cout << "Double the bet(Input Y or N): " << endl;
-                        cin >> double_bet;
-                        if (double_bet == "Y"){
-                            bet *=2;
-                            //codes need
-                            player.add_card(dealer(min, max, head));
-                            // starts to compare. need to repeat the comparision part, which can be put into a function.
-                        }
-                        else{
-                            hitStand();
-                            if (player.calculate() > 21){
-                                cout << "Sorry, you lose" << endl;
-                                player.balance -= bet;
-                                player.clear_cards();
-                                banker.clear_cards();
-                            }
-                            else{
-                                Banker(min, max, head);
-                                if (banker.calculate() > 21){
-                                    cout << "Congratulations! You win!" << endl;
-                                    player.balance += bet;
-                                    player.clear_cards();
-                                    banker.clear_cards();
-                                }
-                                else{
-                                    player.balance += comparison(player.calculate(), banker.calculate(), bet);
-                                    player.clear_cards();
-                                    banker.clear_cards();
-                                }
-                            }
-                        }
-                    }
+                    codes(min, max, head, bet);
                 }
             }
         }
-}
+        player.clear_cards();
+        banker.clear_cards();
+    }
                 /*
                 string double_bet;
                 cout << "Double the bet(Input Y or N): " << endl;
