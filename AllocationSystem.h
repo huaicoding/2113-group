@@ -30,5 +30,6 @@ public:
     void Allocate(int random);
     void printRules();
     void insurance(string rankst, string ranknd, double bet, double& balance);
+private:
     string decrypter(int code);
 };
