@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include "time.h"
 #include "AllocationSystem.h"
 using namespace std;
 
@@ -51,7 +52,7 @@ Node* BST_Tree::searchNode(int code) {
 }
 
 Node* BST_Tree::delNode(Node*& currentNode, Node* node) {
-    if (currentNode == NULL)
+    if (currentNode == NULL || node == NULL)
         return NULL;
     else if (node->code > currentNode->code) {
         currentNode->right = delNode(currentNode->right, node);
@@ -78,6 +79,7 @@ Node* BST_Tree::delNode(Node*& currentNode, Node* node) {
         return currentNode;
     }
 }
+
 
 void BST_Tree::delNode(Node* node) {
     delNode(root, node);
@@ -110,10 +112,11 @@ void BST_Tree::print() {
     print(root);
 }
 
-int BST_Tree::height(Node* tree) {
-    if (tree != NULL)
-        return tree->height;
-    return 0;
+int BST_Tree::height(Node* currentNode) {
+    if (currentNode != NULL)
+        return currentNode->height;
+    else
+        return 0;
 }
 
 int BST_Tree::max(int h1, int h2) {
@@ -150,14 +153,45 @@ Node* BST_Tree::RL_Rotation(Node* k1) {
     return LL_Rotation(k1);
 }
 
-void AllocationSystem::Initalisation(){
-    
-    int min = 1;
+BST_Tree* AllocationSystem::Initialisation() {
     int max = 208;
-    for (int min; min <= max; min++){
-        
+    int min = 1;
+    BST_Tree* root = new BST_Tree();
+    for (min; min <= max; min++)
+        root->insertNode(min);
+    return root;
 }
 
-void AllocateSystem::Allocate(int random){
+string AllocationSystem::Allocate(int min, int &max, BST_Tree* root) {
+    int target = random_generator(min, max);
+    Node* item = root->searchNode(target);
+    root->delNode(item);
+    string card = decrypter(target);
+    max--; 
+    return card;
 }
 
+string AllocationSystem::decrypter(int code) { // code [1, 208]
+    string card;
+    char suit[4] = { 'C', 'H', 'S', 'D' };
+    string rank[13] = { "K", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q" };
+    if (code % 13 != 0) {
+        int s = (code / 13 + 1) % 4;
+        card = suit[s];
+        int r = code % 13;
+        card = card + rank[r];
+    }
+    else {
+        int s = (code / 13) % 4;
+        card = suit[s];
+        int r = code % 13;
+        card = card + rank[r];
+    }
+    return card;
+}
+
+int AllocationSystem::random_generator(int min, int max) {
+    srand((unsigned)time(NULL));
+    int range = max - min + 1;
+    return rand() % range + min;
+}
