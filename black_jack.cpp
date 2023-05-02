@@ -162,6 +162,14 @@ int comparison(int player, int banker, double bet){
     return 0;
 }
 
+void Banker(int &min, int &max, card *head){
+    cout << "banker's cards: " << banker.get_cards()[0] << ", " << banker.get_cards()[1] << endl;
+    while (banker.calculate() < 17){
+        banker.add_card(dealer(min, max, head));
+        cout << "New card: " << banker.get_cards()[banker.get_cards().size()-1] << "total point: " << banker.calculate() << endl;
+    }
+}
+
 int main(){
     int min = 0, max = 207, sum;
     Player player;
@@ -271,11 +279,7 @@ int main(){
                                 banker.clear_cards();
                             }
                             else{
-                                cout << "banker's cards: " << banker.get_cards()[0] << ", " << banker.get_cards()[1] << endl;
-                                while (banker.calculate() < 17){
-                                    banker.add_card(dealer(min, max, head));
-                                    cout << "New card: " << banker.get_cards()[banker.get_cards().size()-1] << "total point: " << banker.calculate() << endl;
-                                }
+                                Banker(min, max, head);
                                 if (banker.calculate() > 21){
                                     cout << "Congratulations! You win!" << endl;
                                     player.balance += bet;
