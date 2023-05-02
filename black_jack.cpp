@@ -145,6 +145,22 @@ void hitStand(){
     }
 }
 
+int comparison(int player, int banker, double bet){
+    if (player > banker){
+        cout << "Congratulations! You win!" << endl;
+        return bet;
+
+    }
+    else if(player < banker){
+        cout << "Sorry, you lose" << endl;
+        return -bet;
+    }
+    else{
+        cout << "Break even" << endl;
+        return 0;
+    }
+    return 0;
+}
 
 int main(){
     int min = 0, max = 207, sum;
@@ -267,23 +283,9 @@ int main(){
                                     banker.clear_cards();
                                 }
                                 else{
-                                    if (player.calculate() > banker.calculate()){
-                                        cout << "Congratulations! You win!" << endl;
-                                        player.balance += bet;
-                                        player.clear_cards();
-                                        banker.clear_cards();
-                                    }
-                                    else if(player.calculate() < banker.calculate()){
-                                        cout << "Sorry, you lose" << endl;
-                                        player.balance -= bet;
-                                        player.clear_cards();
-                                        banker.clear_cards();
-                                    }
-                                    else{
-                                        cout << "Break even" << endl;
-                                        player.clear_cards();
-                                        banker.clear_cards();
-                                    }
+                                    player.balance += comparison(player.calculate(), banker.calculate(), bet);
+                                    player.clear_cards();
+                                    banker.clear_cards();
                                 }
                             }
                         }
