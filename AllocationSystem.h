@@ -30,14 +30,14 @@ public:
     void insertNode(int code);
     void delNode(Node* node);
     Node* searchNode(int code);
+    void print();
 };
 
-class AllocationSystem: public AVL_Tree {
+class AllocationSystem : public BST_Tree {
 public:
-	void Initialisation(int code);
-	void Allocate(int random);
-	void printRules();
-	void insurance(string rankst, string ranknd, double bet, double& balance);
+    BST_Tree* Initialisation();
+    string Allocate(int min, int& max, BST_Tree* root);
 private:
-	string decrypter(int code);
+    string decrypter(int code);
+    int random_generator(int min, int max);
 };
