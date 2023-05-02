@@ -177,6 +177,7 @@ int main(){
         if (sum == 21){
             cout << "Congradulations! You win with Blackjack!" << endl;
             player.balance += 1.5*bet;
+            //code needs
         }
         else{
             string surrender;
