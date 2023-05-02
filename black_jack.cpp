@@ -6,131 +6,16 @@
 #include <time.h> 
 #include "player.h"
 #include "banker.h"
+#include "AllocationSystem.h"
 using namespace std;
 
-struct Card{
-    string rank;
-    char suite;
-    Card *next;
-};
-
-
-int random_num_generator(int min, int max){
-    srand((unsigned)time(NULL)); 
-    int range = max - min + 1;
-    return rand() % range + min;
-}
-
-string dealer(int min, int &max, Card *head){
-    int index = random_num_generator(min, max);
-    Card *current = head, *previous = NULL;
-    for (int i = 0; i < index; i++){
-        previous = current;
-        current = current -> next;
-    }
-    string card = current -> rank + current -> suite;
-    previous -> next = current -> next;
-    delete current;
-    max --;
-    return card;
-}
-
-void headInsert(Card *&head, string rank, char suite){
-    Card *pNode = new Card;
-    pNode -> rank = rank;
-    pNode -> suite = suite;
-    pNode -> next = head;
-    head = pNode;
-}
-
-void loading(Card *&head){
-    for (int i = 2; i < 11; i++){
-        for (int j = 0; j < 16; j++){
-            if (j % 4 == 0){
-                headInsert(head, to_string(i),'h');
-            }
-            else if (j % 4 == 1)
-            {
-                headInsert(head, to_string(i),'s');
-            }
-            else if (j % 4 == 2){
-                headInsert(head, to_string(i),'d');
-            }
-            else{
-                headInsert(head, to_string(i),'c');
-            } 
-        }
-    }
-    for (int i = 0; i < 4; i++){
-        for (int j = 0; j < 16; j++){
-            if (i == 0){
-                 if (j % 4 == 0){
-                    headInsert(head, "A",'h');
-                }
-                else if (j % 4 == 1){
-                    headInsert(head,"A",'s');
-                }
-                else if (j % 4 == 2){
-                    headInsert(head, "A",'d');
-                }
-                else{
-                    headInsert(head, "A",'c');
-                } 
-            }
-            else if(i == 1){
-                 if (j % 4 == 0){
-                    headInsert(head, "K",'h');
-                }
-                else if (j % 4 == 1){
-                    headInsert(head,"K",'s');
-                }
-                else if (j % 4 == 2){
-                    headInsert(head, "K",'d');
-                }
-                else{
-                    headInsert(head, "K",'c');
-                } 
-            }
-            else if(i == 2){
-                 if (j % 4 == 0){
-                    headInsert(head, "Q",'h');
-                }
-                else if (j % 4 == 1){
-                    headInsert(head,"Q",'s');
-                }
-                else if (j % 4 == 2){
-                    headInsert(head, "Q",'d');
-                }
-                else{
-                    headInsert(head, "Q",'c');
-                } 
-            }
-            else{
-                 if (j % 4 == 0){
-                    headInsert(head, "J",'h');
-                }
-                else if (j % 4 == 1){
-                    headInsert(head,"J",'s');
-                }
-                else if (j % 4 == 2){
-                    headInsert(head, "J",'d');
-                }
-                else{
-                    headInsert(head, "J",'c');
-                } 
-            }
-
-        }
-    }
-}
-
-void hitStand(int min, int &max, card *head){
+void hitStand(int min, int &max, BST_Tree* root){
     cout << "please chooose an action: hit/stand" << endl;
     string action;
     cin >> action;
     while (player.calculate() < 21){
         if (action == "hit"){
-            player.add_card(dealer(min, max, head));
+            player.add_card(Allocate(min, max, root));
             cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
             cin >> action;
         }
@@ -162,22 +47,22 @@ int comparison(int player, int banker, double bet){
     return 0;
 }
 
-void Banker(int &min, int &max, card *head){
+void Banker(int &min, int &max, BST_Tree *root){
     cout << "banker's cards: " << banker.get_cards()[0] << ", " << banker.get_cards()[1] << endl;
     while (banker.calculate() < 17){
-        banker.add_card(dealer(min, max, head));
+        banker.add_card(Allocate(min, max, root));
         cout << "New card: " << banker.get_cards()[banker.get_cards().size()-1] << "total point: " << banker.calculate() << endl;
     }
 }
 
-void normProcess(int &min, int &max, card *head, int bet){
-    hitStand(min, max, head);
+void normProcess(int &min, int &max, BST_Tree *root, int bet){
+    hitStand(min, max, root);
     if (player.calculate() > 21){
         cout << "Sorry, you lose" << endl;
         player.balance -= bet;
     }
     else{
-        Banker(min, max, head);
+        Banker(min, max, root);
         if (banker.calculate() > 21){
             cout << "Congratulations! You win!" << endl;
             player.balance += bet;
@@ -188,7 +73,7 @@ void normProcess(int &min, int &max, card *head, int bet){
     }
 }
 
-void codes(int &min, int &max, card *head, int bet){
+void codes(int &min, int &max, BST_Tree *root, int bet){
     string a = player.get_cards()[0];
     a.pop_back();
     string b = player.get_cards()[1];
@@ -202,11 +87,11 @@ void codes(int &min, int &max, card *head, int bet){
             vector<int> results;
             player.keep_first();
             // repeating from 208-242(stand or hit);
-            hitStand(min, max, head);
+            hitStand(min, max, root);
             results.push_back(player.calculate());
             player.keep_first();
             // repeat
-            hitStand(min, max, head);
+            hitStand(min, max, root);
             results.push_back(player.calculate());
             if (results[0] > 21 && results[1] > 21){
                 //两局全爆牌
@@ -218,7 +103,7 @@ void codes(int &min, int &max, card *head, int bet){
                 //两个分别比，复制下面252-274，重复两次把两次分别比即可。
                 for ( int i = 0; i < 2; i ++){
                     cout << "Hand " << i + 1 << endl;
-                    Banker(min, max, head);
+                    Banker(min, max, root);
                     if ( results[i] > 21 && banker.calculate() > 21 ){
                         cout << "Break even" << endl;
                     }
@@ -240,7 +125,7 @@ void codes(int &min, int &max, card *head, int bet){
         }
         else{
             //codes2
-            void normProcess(min, max, head, bet);
+            void normProcess(min, max, root, bet);
         }
     }
     else{ //codes2
@@ -250,9 +135,9 @@ void codes(int &min, int &max, card *head, int bet){
         if (double_bet == "Y"){
             bet *=2;
             //codes need
-            player.add_card(dealer(min, max, head));
+            player.add_card(Allocate(min, max, root));
             // starts to compare. need to repeat the comparision part, which can be put into a function.
-            Banker(min, max, head);
+            Banker(min, max, root);
             if (banker.calculate() > 21){
                 cout << "Congratulations! You win!" << endl;
                 player.balance += bet;
@@ -263,17 +148,19 @@ void codes(int &min, int &max, card *head, int bet){
 
         }
         else{
-            void normProcess(min, max, head, bet);
+            void normProcess(min, max, root, bet);
         }
     }
 }
 
 
 int main(){
-    int min = 0, max = 207, sum;
+    int min = 0, max = 207, sum; //参数范围？
     Player player;
     Banker banker;
+    AllocationSystem AC;
     double buy_in, bet;
+    BST_Tree* root = AC.Initialisation();
     cout << "----- Welcome to HKU Blackjack game! ----- " << endl;
     cout << "Game Start" << endl;
     cout << "Please input your buy-in amount: " << endl;
