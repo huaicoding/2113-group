@@ -124,7 +124,7 @@ void loading(Card *&head){
     }
 }
 
-void hitStand(){
+void hitStand(int &min, int &max, card *head){
     cout << "please chooose an action: hit/stand" << endl;
     string action;
     cin >> action;
@@ -231,11 +231,11 @@ int main(){
                             vector<int> results;
                             player.keep_first();
                             // repeating from 208-242(stand or hit);
-                            hitStand();
+                            hitStand(min, max, head);
                             result.push_back(player.calculate());
                             player.keep_first();
                             // repeat
-                            hitStand();
+                            hitStand(min, max, head);
                             result.push_back(player.calculate());
                             if (result[0] > 21 && result[1] > 21){
                                 //两局全爆牌
