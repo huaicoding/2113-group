@@ -124,7 +124,7 @@ void loading(Card *&head){
     }
 }
 
-void hitStand(int &min, int &max, card *head){
+void hitStand(int min, int &max, card *head){
     cout << "please chooose an action: hit/stand" << endl;
     string action;
     cin >> action;
