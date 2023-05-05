@@ -167,7 +167,7 @@ BST_Tree* AllocationSystem::Initialisation() {
 }
 
 string AllocationSystem::Allocate(int min, int& max, BST_Tree* &root) {
-    if (count < 61){
+    if (count < 60){
         count++;
         return allocate(min, max, root);
     }
