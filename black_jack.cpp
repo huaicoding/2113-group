@@ -234,7 +234,6 @@ int main() {
         }
         else if (bet != -1)
             cout << " ~ Insufficient balance. Please choose your bet again." << endl;
-        }
     }
     return 0;
 }
