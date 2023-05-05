@@ -31,11 +31,11 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
     }
 }
 
-int comparison(int player, int banker, double bet) {
+int comparison(int player, int banker, double bet, int &win_count) {
     if (player > banker) {
         cout << "Congratulations! You win!" << endl;
+        win_count ++;
         return bet;
-
     }
     else if (player < banker) {
         cout << "Sorry, you lose" << endl;
@@ -57,7 +57,7 @@ void Banker_card(int& min, int& max, BST_Tree* root, Banker* banker) {
     }
 }
 
-void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker) {
+void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int &win_count) {
     hitStand(min, max, root, player);
     if ((*player).calculate() > 21) {
         cout << "Sorry, you lose" << endl;
@@ -68,14 +68,15 @@ void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player,
         if ((*banker).calculate() > 21) {
             cout << "Congratulations! You win!" << endl;
             (*player).balance += bet;
+            win_count ++;
         }
         else {
-            (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet);
+            (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet, win_count);
         }
     }
 }
 
-void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker) {
+void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int &win_count) {
     AllocationSystem AC;
     string a = (*player).get_cards()[0];
     a.pop_back();
@@ -117,9 +118,10 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
                     else if (results[i] <= 21 && (*banker).calculate() > 21) {
                         cout << "Congratulations! You win!" << endl;
                         (*player).balance += bet;
+                        win_count ++;
                     }
                     else {
-                        (*player).balance += comparison(results[i], (*banker).calculate(), bet);
+                        (*player).balance += comparison(results[i], (*banker).calculate(), bet, win_count);
                     }
 
                 }
@@ -128,7 +130,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
         }
         else {
             //codes2
-            normProcess(min, max, root, bet, player, banker);
+            normProcess(min, max, root, bet, player, banker, win_count);
         }
     }
     else { //codes2
@@ -146,12 +148,12 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
                 (*player).balance += bet;
             }
             else {
-                (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet);
+                (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet, win_count);
             }
 
         }
         else {
-            normProcess(min, max, root, bet, player, banker);
+            normProcess(min, max, root, bet, player, banker, win_count);
         }
     }
 }
@@ -163,6 +165,7 @@ int main() {
     Banker banker;
     AllocationSystem AC;
     double buy_in, bet = 0;
+    int total_games = 0, win_count = 0;
     BST_Tree* root = AC.Initialisation();
     cout << "----- Welcome to HKU Blackjack game! ----- " << endl;
     cout << "Game Start" << endl;
@@ -188,6 +191,7 @@ int main() {
         if (sum == 21) {
             cout << "Congradulations! You win with Blackjack!" << endl;
             player.balance += 1.5 * bet;
+            win_count ++;
             //code needs
         }
         else {
@@ -207,21 +211,22 @@ int main() {
                             cout << "Youe lose the insurance!" << endl;
                             player.balance -= bet / 2;
                             //codes
-                            codes(min, max, root, bet, &player, &banker);
+                            codes(min, max, root, bet, &player, &banker, win_count);
                         }
                     }
                     else {
                         //codes
-                        codes(min, max, root, bet, &player, &banker);
+                        codes(min, max, root, bet, &player, &banker, win_count);
                     }
                 }
                 else { //codes
-                    codes(min, max, root, bet, &player, &banker);
+                    codes(min, max, root, bet, &player, &banker, win_count);
                 }
             }
         }
         player.clear_cards();
         banker.clear_cards();
+        total_games ++;
     }
     return 0;
 }
