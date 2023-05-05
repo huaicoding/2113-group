@@ -153,6 +153,10 @@ Node* BST_Tree::RL_Rotation(Node* k1) {
     return LL_Rotation(k1);
 }
 
+void BST_Tree::destroy(BST_Tree* currentNode) {
+    delete currentNode;
+}
+
 BST_Tree* AllocationSystem::Initialisation() {
     int max = 208;
     int min = 1;
@@ -162,14 +166,28 @@ BST_Tree* AllocationSystem::Initialisation() {
     return root;
 }
 
-string AllocationSystem::Allocate(int min, int &max, BST_Tree* root) {
+string AllocationSystem::Allocate(int min, int& max, BST_Tree* &root) {
+    if (count < 61){
+        count++;
+        return allocate(min, max, root);
+    }
+    else {
+        count = 1;
+        destroy(root);
+        root = Initialisation();
+        return allocate(min, max, root);
+    }
+}
+
+string AllocationSystem::allocate(int min, int &max, BST_Tree* &root) {
     int target = random_generator(min, max);
     Node* item = root->searchNode(target);
     root->delNode(item);
     string card = decrypter(target);
-    max--; 
+    max--;
     return card;
 }
+
 
 string AllocationSystem::decrypter(int code) { // code [1, 208]
     string card;
