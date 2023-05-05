@@ -155,7 +155,7 @@ void codes(int &min, int &max, BST_Tree *root, int bet){
 
 
 int main(){
-    int min = 0, max = 207, sum; //参数范围？
+    int min = 1, max = 208, sum; //参数范围？
     Player player;
     Banker banker;
     AllocationSystem AC;
@@ -176,10 +176,10 @@ int main(){
         Card *head = NULL;
         loading(head);
         for (int i = 0; i < 2; i++){
-            player.add_card(dealer(min, max, head));
+            player.add_card(Allocate(min, max, head));
         }
         for (int i = 0; i < 2; i++){
-            banker.add_card(dealer(min, max, head));
+            banker.add_card(Allocate(min, max, head));
         }
         cout << "Your card is " << player.get_cards()[0] << ", " << player.get_cards()[1] << endl;
         cout << "banker's card is " << banker.get_cards()[0] << ", " << "*" << endl;
