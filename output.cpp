@@ -11,7 +11,7 @@ viod cash_out_result(int total_games, int win_count, double buy_in, double balan
     cout << "Error in opening the file !" << endl;
     }
   else{
-    fout << "--------------------Game Result--------------------" << endl;
+    fout << "-------------------------Game Result-----------------------------" << endl;
     fout << "You have played " << total_games << " games in total." << endl;
     fout << "You have won " << win_count << " games in total." << endl;
     if (score =< 0){
@@ -21,6 +21,7 @@ viod cash_out_result(int total_games, int win_count, double buy_in, double balan
     else if (score > 0){
       fout << "You have lost " << score << " ." << endl;
     }
+    fout << "-----------------------------------------------------------------" << endl;
   }
   fout.close();
 }
