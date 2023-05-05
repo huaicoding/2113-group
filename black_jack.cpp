@@ -30,7 +30,7 @@ void hitStand(int min, int &max, BST_Tree* root, Player *player){
     }
 }
 
-int comparison(int player, int banker, double bet){
+int comparison(int player, int banker, double bet, int &win_count){
     if (player > banker){
         cout << "Congratulations! You win!" << endl;
         return bet;
@@ -141,6 +141,7 @@ void codes(int &min, int &max, BST_Tree *root, double bet, Player *player, Banke
             if ((*banker).calculate() > 21){
                 cout << "Congratulations! You win!" << endl;
                 (*player).balance += bet;
+                
             }
             else{
                 (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet);
@@ -188,6 +189,7 @@ int main(){
         if (sum == 21){
             cout << "Congradulations! You win with Blackjack!" << endl;
             player.balance += 1.5*bet;
+            win_count ++;
             //code needs
         }
         else{
@@ -222,6 +224,7 @@ int main(){
         }
         player.clear_cards();
         banker.clear_cards();
+        total_games ++;
     }
     return 0;
 }
