@@ -30,14 +30,17 @@ public:
     void insertNode(int code);
     void delNode(Node* node);
     Node* searchNode(int code);
+    void destroy(BST_Tree* currentNode);
     void print();
 };
 
 class AllocationSystem : public BST_Tree {
 public:
-    BST_Tree* Initialisation();
-    string Allocate(int min, int& max, BST_Tree* root);
+   BST_Tree* Initialisation();
+    string Allocate(int min, int& max, BST_Tree* &root);
 private:
-    string decrypter(int code);
+   string decrypter(int code);
+    string allocate(int min, int& max, BST_Tree* &root);
     int random_generator(int min, int max);
+    int count = 0;
 };
