@@ -9,18 +9,18 @@
 #include "AllocationSystem.h"
 using namespace std;
 
-void hitStand(int min, int &max, BST_Tree* root){
+void hitStand(int min, int &max, BST_Tree* root, Player *player){
     cout << "please chooose an action: hit/stand" << endl;
     string action;
     cin >> action;
-    while (player.calculate() < 21){
+    while ((* player).calculate() < 21){
         if (action == "hit"){
-            player.add_card(Allocate(min, max, root));
-            cout << "New card: " << player.get_cards()[player.get_cards().size()-1] << "total point: " << player.calculate() << endl;
+            (*player).add_card(Allocate(min, max, root));
+            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size()-1] << "total point: " << (*player).calculate() << endl;
             cin >> action;
         }
         else if (action == "stand"){
-            cout << "Total point: " << player.calculate() << endl;
+            cout << "Total point: " << (*player).calculate() << endl;
             break;
         }
         else{
@@ -47,36 +47,36 @@ int comparison(int player, int banker, double bet){
     return 0;
 }
 
-void Banker(int &min, int &max, BST_Tree *root){
-    cout << "banker's cards: " << banker.get_cards()[0] << ", " << banker.get_cards()[1] << endl;
-    while (banker.calculate() < 17){
-        banker.add_card(Allocate(min, max, root));
-        cout << "New card: " << banker.get_cards()[banker.get_cards().size()-1] << "total point: " << banker.calculate() << endl;
+void Banker_card(int &min, int &max, BST_Tree *root, Banker *banker){
+    cout << "banker's cards: " << (*banker).get_cards()[0] << ", " << (*banker).get_cards()[1] << endl;
+    while ((*banker).calculate() < 17){
+        (*banker).add_card(Allocate(min, max, root));
+        cout << "New card: " << (*banker).get_cards()[(*banker).get_cards().size()-1] << "total point: " << (*banker).calculate() << endl;
     }
 }
 
-void normProcess(int &min, int &max, BST_Tree *root, int bet){
-    hitStand(min, max, root);
-    if (player.calculate() > 21){
+void normProcess(int &min, int &max, BST_Tree *root, double bet, Player *player, Banker *banker){
+    hitStand(min, max, root, player);
+    if ((*player).calculate() > 21){
         cout << "Sorry, you lose" << endl;
-        player.balance -= bet;
+        (*player).balance -= bet;
     }
     else{
-        Banker(min, max, root);
-        if (banker.calculate() > 21){
+        Banker_card(min, max, root, banker);
+        if ((*banker).calculate() > 21){
             cout << "Congratulations! You win!" << endl;
-            player.balance += bet;
+            (*player).balance += bet;
         }
         else{
-            player.balance += comparison(player.calculate(), banker.calculate(), bet);
+            (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet);
         }
     }
 }
 
-void codes(int &min, int &max, BST_Tree *root, int bet){
-    string a = player.get_cards()[0];
+void codes(int &min, int &max, BST_Tree *root, double bet, Player *player, Banker *banker){
+    string a = (*player).get_cards()[0];
     a.pop_back();
-    string b = player.get_cards()[1];
+    string b = (*player).get_cards()[1];
     b.pop_back();
     if (a == b){
         string split;
@@ -85,38 +85,38 @@ void codes(int &min, int &max, BST_Tree *root, int bet){
         if (split == "Y"){
             // codes for split play
             vector<int> results;
-            player.keep_first();
+            (*player).keep_first();
             // repeating from 208-242(stand or hit);
-            hitStand(min, max, root);
-            results.push_back(player.calculate());
-            player.keep_first();
+            hitStand(min, max, root, player);
+            results.push_back((*player).calculate());
+            (*player).keep_first();
             // repeat
-            hitStand(min, max, root);
-            results.push_back(player.calculate());
+            hitStand(min, max, root, player);
+            results.push_back((*player).calculate());
             if (results[0] > 21 && results[1] > 21){
                 //两局全爆牌
                 cout << "Sorry, you lose" << endl;
-                player.balance -= 2*bet;
+                (*player).balance -= 2*bet;
                 
             }
             else{
                 //两个分别比，复制下面252-274，重复两次把两次分别比即可。
                 for ( int i = 0; i < 2; i ++){
                     cout << "Hand " << i + 1 << endl;
-                    Banker(min, max, root);
-                    if ( results[i] > 21 && banker.calculate() > 21 ){
+                    Banker_card(min, max, root, banker);
+                    if ( results[i] > 21 && (*banker).calculate() > 21 ){
                         cout << "Break even" << endl;
                     }
-                    else if ( results[i] > 21 && banker.calculate() <= 21 ){
+                    else if ( results[i] > 21 && (*banker).calculate() <= 21 ){
                         cout << "Sorry, you lose" << endl;
-                        player.balance -= bet.
+                        (*player).balance -= bet;
                     }
-                    else if ( results[i] <= 21 && banker.calculate() > 21 ){
+                    else if ( results[i] <= 21 && (*banker).calculate() > 21 ){
                         cout << "Congratulations! You win!" << endl;
-                        player.balance += bet.
+                        (*player).balance += bet;
                     }
                     else{
-                        palyer.balance += comparison(results[i], banker.calculate(), bet);
+                        (*player).balance += comparison(results[i], (*banker).calculate(), bet);
                     }
                     
                 }
@@ -125,7 +125,7 @@ void codes(int &min, int &max, BST_Tree *root, int bet){
         }
         else{
             //codes2
-            void normProcess(min, max, root, bet);
+            normProcess(min, max, root, bet, player, banker);
         }
     }
     else{ //codes2
@@ -135,27 +135,27 @@ void codes(int &min, int &max, BST_Tree *root, int bet){
         if (double_bet == "Y"){
             bet *=2;
             //codes need
-            player.add_card(Allocate(min, max, root));
+            (*player).add_card(Allocate(min, max, root));
             // starts to compare. need to repeat the comparision part, which can be put into a function.
-            Banker(min, max, root);
-            if (banker.calculate() > 21){
+            Banker_card(min, max, root, banker);
+            if ((*banker).calculate() > 21){
                 cout << "Congratulations! You win!" << endl;
-                player.balance += bet;
+                (*player).balance += bet;
             }
             else{
-                player.balance += comparison(player.calculate(), banker.calculate(), bet);
+                (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet);
             }
 
         }
         else{
-            void normProcess(min, max, root, bet);
+            normProcess(min, max, root, bet, player, banker);
         }
     }
 }
 
 
 int main(){
-    int min = 1, max = 208, sum; //参数范围？
+    int min = 0, max = 207, sum; //参数范围？
     Player player;
     Banker banker;
     AllocationSystem AC;
@@ -176,10 +176,10 @@ int main(){
         Card *head = NULL;
         loading(head);
         for (int i = 0; i < 2; i++){
-            player.add_card(Allocate(min, max, head));
+            player.add_card(dealer(min, max, head));
         }
         for (int i = 0; i < 2; i++){
-            banker.add_card(Allocate(min, max, head));
+            banker.add_card(dealer(min, max, head));
         }
         cout << "Your card is " << player.get_cards()[0] << ", " << player.get_cards()[1] << endl;
         cout << "banker's card is " << banker.get_cards()[0] << ", " << "*" << endl;
@@ -206,85 +206,21 @@ int main(){
                             cout << "Youe lose the insurance!" << endl;
                             player.balance -= bet/2;
                             //codes
-                            codes(min, max, head, bet);
+                            codes(min, max, head, bet, &player, &banker);
                         }
                     }
                     else{
                         //codes
-                        codes(min, max, head, bet);
+                        codes(min, max, head, bet, &player, &banker);
                     }
                 }
                 else{ //codes
-                    codes(min, max, head, bet);
+                    codes(min, max, head, bet, &player, &banker);
                 }
             }
         }
         player.clear_cards();
         banker.clear_cards();
     }
-                /*
-                string double_bet;
-                cout << "Double the bet(Input Y or N): " << endl;
-                cin >> double_bet;
-                if (double_bet == "Y"){
-                    
-
-                }
-                string a = player.get_cards()[0];
-                a.pop_back();
-                string b = player.get_cards()[1];
-                b.pop_back();
-                if (a == b){
-                    string split;
-                    cout << "Split the card(Input Y or N): " << endl;
-                    cin >> split;
-                    if (split == "Y"){
-                        if (banker.get_cards()[0][0] == 'A'){
-                            string insurance;
-                            cout << "Buy insurance(Input Y or N): " << endl;
-                            cin >> insurance;
-                            if (insurance == "Y"){
-                                my_insurance = true;
-                            }
-                        }
-                    }
-                    else{
-                        if (banker.get_cards()[0][0] == 'A'){
-                            string insurance;
-                            cout << "Buy insurance(Input Y or N): " << endl;
-                            cin >> insurance;
-                            if (insurance == "Y"){
-                                my_insurance = true;
-                            }
-                        }
-
-                    }
-                }
-                else{
-                    if (banker.get_cards()[0][0] == 'A'){
-                        string insurance;
-                        cout << "Buy insurance(Input Y or N): " << endl;
-                        cin >> insurance;
-                        if (insurance == "Y"){
-                            my_insurance = true;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    */
-    /*
-    Card *current;
-    current = head;
-    int count = 0;
-    while (current != NULL){
-        cout << current-> rank << current -> suite << endl;
-        count ++;
-        current = current -> next;  
-    } 
-    cout << count << endl;
-    */
-    
     return 0;
 }
