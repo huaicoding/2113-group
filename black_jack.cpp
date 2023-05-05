@@ -3,6 +3,7 @@
 #include <sstream>
 #include <vector> 
 #include <stdlib.h>
+#include <typeinfo>
 #include <time.h> 
 #include "player.h"
 #include "banker.h"
@@ -13,7 +14,6 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
     AllocationSystem AC;
     cout << "please chooose an action: hit/stand" << endl;
     string action;
-   
     while ((*player).calculate() < 21) {
         cin >> action;
         if (action == "hit") {
@@ -30,10 +30,10 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
     }
 }
 
-int comparison(int player, int banker, double bet, int &win_count) {
+int comparison(int player, int banker, double bet, int& win_count) {
     if (player > banker) {
         cout << "Congratulations! You win!" << endl;
-        win_count ++;
+        win_count++;
         return bet;
     }
     else if (player < banker) {
@@ -56,7 +56,7 @@ void Banker_card(int& min, int& max, BST_Tree* root, Banker* banker) {
     }
 }
 
-void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int &win_count) {
+void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int& win_count) {
     hitStand(min, max, root, player);
     if ((*player).calculate() > 21) {
         cout << "Sorry, you lose" << endl;
@@ -67,7 +67,7 @@ void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player,
         if ((*banker).calculate() > 21) {
             cout << "Congratulations! You win!" << endl;
             (*player).balance += bet;
-            win_count ++;
+            win_count++;
         }
         else {
             (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet, win_count);
@@ -75,13 +75,11 @@ void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player,
     }
 }
 
-void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int &win_count) {
+void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int& win_count) {
     AllocationSystem AC;
     string a = (*player).get_cards()[0];
-    a.pop_back();
     string b = (*player).get_cards()[1];
-    b.pop_back();
-    if (a == b) {
+    if (a.substr(1) == b.substr(1)){
         string split;
         cout << "Split the card(Input Y or N): " << endl;
         cin >> split;
@@ -117,7 +115,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
                     else if (results[i] <= 21 && (*banker).calculate() > 21) {
                         cout << "Congratulations! You win!" << endl;
                         (*player).balance += bet;
-                        win_count ++;
+                        win_count++;
                     }
                     else {
                         (*player).balance += comparison(results[i], (*banker).calculate(), bet, win_count);
@@ -141,15 +139,21 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             //codes need
             (*player).add_card(AC.Allocate(min, max, root));
             // starts to compare. need to repeat the comparision part, which can be put into a function.
-            Banker_card(min, max, root, banker);
-            if ((*banker).calculate() > 21) {
-                cout << "Congratulations! You win!" << endl;
-                (*player).balance += bet;
+            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " \ntotal point: " << (*player).calculate() << endl;
+            if ((*player).calculate() > 21){
+                cout << "Sorry, you lose" << endl;
+                (*player).balance -= bet;
             }
             else {
-                (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet, win_count);
+                Banker_card(min, max, root, banker);
+                if ((*banker).calculate() > 21) {
+                    cout << "Congratulations! You win!" << endl;
+                    (*player).balance += bet;
+                }
+                else {
+                    (*player).balance += comparison((*player).calculate(), (*banker).calculate(), bet, win_count);
+                }
             }
-
         }
         else {
             normProcess(min, max, root, bet, player, banker, win_count);
@@ -159,7 +163,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
 
 
 int main() {
-    int min = 0, max = 207, sum; //参数范围？
+    int min = 1, max = 208, sum; //参数范围？
     Player player;
     Banker banker;
     AllocationSystem AC;
@@ -174,7 +178,7 @@ int main() {
     while (bet != -1) {
         cout << "Place your bet(or input -1 to exit): " << endl;
         cin >> bet;
-        while (bet > player.balance) {
+        while (bet > player.balance){// 数据类型) 
             cout << "Insufficient balance. Please choose your bet again: " << endl;
             cin >> bet;
         }
@@ -190,7 +194,7 @@ int main() {
         if (sum == 21) {
             cout << "Congradulations! You win with Blackjack!" << endl;
             player.balance += 1.5 * bet;
-            win_count ++;
+            win_count++;
             //code needs
         }
         else {
@@ -225,7 +229,7 @@ int main() {
         }
         player.clear_cards();
         banker.clear_cards();
-        total_games ++;
+        total_games++;
     }
     return 0;
 }
