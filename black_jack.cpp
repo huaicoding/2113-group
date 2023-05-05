@@ -13,12 +13,12 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
     AllocationSystem AC;
     cout << "please chooose an action: hit/stand" << endl;
     string action;
-    cin >> action;
+   
     while ((*player).calculate() < 21) {
+        cin >> action;
         if (action == "hit") {
             (*player).add_card(AC.Allocate(min, max, root));
-            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << "total point: " << (*player).calculate() << endl;
-            cin >> action;
+            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " \ntotal point: " << (*player).calculate() << endl;
         }
         else if (action == "stand") {
             cout << "Total point: " << (*player).calculate() << endl;
@@ -26,7 +26,6 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
         }
         else {
             cout << "Incorrect action, please enter the correct action." << endl;
-            cin >> action;
         }
     }
 }
