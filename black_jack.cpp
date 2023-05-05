@@ -160,6 +160,7 @@ int main(){
     Banker banker;
     AllocationSystem AC;
     double buy_in, bet;
+    int total_games, win_count;
     BST_Tree* root = AC.Initialisation();
     cout << "----- Welcome to HKU Blackjack game! ----- " << endl;
     cout << "Game Start" << endl;
