@@ -17,9 +17,9 @@ Process:
            6.The player choose whether countiue to hit or stand
            7.If the banker has less than 17 points, he has to add until he exceeds or equals 17 points
            8.If neither the player nor the banker have more than 21 points, compare the point sizes and let the person with higher point win and get the bet
-           9.If the banker has more than 21 points and the player has less than 21 points, the player will win the bet directly
-           10.If the player has more than 21 points and the banker has less than 21 points, the player will lose the bet directly
-           11.If both the banker and the player have more than 21 points, then push
+           9.If the banker has more than 21 points and the player has less than 21 points, the player will win the bet 
+           10.If the player has more than 21 points, the player will lose the bet directly
+           
 
 
 Point Calculation: 
