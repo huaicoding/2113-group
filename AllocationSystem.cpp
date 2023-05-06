@@ -177,7 +177,7 @@ string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) { //Alloca
     return card;
 }
 
-int AllocationSystem::Remained_cards() {
+int AllocationSystem::Remained_cards() { //If more than 120 cards allocated, the allocation system will shuffle the cards. This function is used to count the number of remaining cards.
     int residual = 208 - count;
     cout << "Card reamined: " << residual << endl;
     return residual;
