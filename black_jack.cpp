@@ -218,11 +218,11 @@ void cash_out_result(int total_games, int win_count, double buy_in, double balan
 }
 
 int main() {
-    int min = 1, max = 208, sum, residual; //参数范围？
+    int min = 1, max = 208, sum, residual, _bet, _buy_in; //参数范围？
     Player player;
     Banker banker;
     AllocationSystem AC;
-    double buy_in, bet = 0;
+    double bet, buy_in;
     int total_games = 0, win_count = 0;
     string input;
     BST_Tree* root = AC.Initialisation();
@@ -232,7 +232,8 @@ int main() {
     getline(cin,input);
     while (InvalidInput(input))
         getline(cin,input);
-    buy_in = stod(input);
+    _buy_in = stoi(input);
+    buy_in = _buy_in;
     player.balance = buy_in;
     while (bet != -1) {
         cout << " ~ Your total balance is: " << player.balance << endl;
@@ -240,7 +241,8 @@ int main() {
         getline(cin,input);
         while (InvalidInput(input))
             getline(cin,input);
-        bet = stod(input);
+        _bet = stoi(input);
+	bet = _bet;
         if ( bet <= player.balance && bet > 0){
             cout << "----------Game " << total_games + 1 << "----------" << endl;
             AC.Remained_cards();
@@ -282,7 +284,7 @@ int main() {
                         if (insurance == "Y") {
                             if (banker.calculate() != 21) {
                                 cout << " ~ Youe lose the insurance! (T⌓T)" << endl;
-                                player.balance -= bet / 2;
+                                player.balance -= bet * 0.5;
                                 //codes
                                 codes(min, max, root, bet, &player, &banker, win_count);
                             }
