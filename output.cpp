@@ -3,7 +3,7 @@
 #include <string>
 using namespace std;
 
-viod cash_out_result(int total_games, int win_count, double buy_in, double balance){
+void cash_out_result(int total_games, int win_count, double buy_in, double balance){
   ofstream fout;
   double score = buy_in - balance;
   fout.open("cash_out_result.txt");
