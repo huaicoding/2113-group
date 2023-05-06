@@ -1,18 +1,17 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <vector>
+#include <vector> 
 #include <stdlib.h>
 #include <typeinfo>
-#include <time.h>
-#include <fstream>
+#include <time.h> 
+#include <fstream> 
 #include "player.h"
 #include "banker.h"
 #include "AllocationSystem.h"
 using namespace std;
 
-void hitStand(int min, int& max, BST_Tree* root, Player* player) {
-    // 
+void hitStand(int min, int& max, BST_Tree* root, Player* player) {  
     AllocationSystem AC;
     cout << " ~ Please chooose an action: hit/stand" << endl;
     string action;
@@ -32,7 +31,7 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
     }
 }
 
-int comparison(int player, int banker, double bet, int& win_count) {
+int comparison(int player, int banker, double bet, int& win_count) { 
     if (player > banker) {
         cout << " ~ Congratulations! You win! ^_^" << endl;
         win_count++;
@@ -93,7 +92,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             // codes for split play
             vector<int> results;
             (*player).keep_first();
-            // repeating from 208-242(stand or hit);
+            // repeating from (stand or hit);
             cout << " ~ Game 1" << endl;
             hitStand(min, max, root, player);
             results.push_back((*player).calculate());
@@ -171,7 +170,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
     }
 }
 
-bool InvalidInput(string input){
+bool InvalidInput(string input){  //Avoid players entering incorrect text, such as spaces and non-numeric characters
     for (int i = 0; i < input.length(); i++){
             if (!(isdigit(input[i]))){
                 cout << "Invalid input, please input again." << endl;
@@ -181,23 +180,23 @@ bool InvalidInput(string input){
     return false;
 }
 
-void cash_in() {
+void cash_in() { //To view the player's game history
     string line;
     ifstream fin;
-    fin.open("cash_out_result.txt");
+    fin.open("cash_out_result.txt"); 
     if (fin.fail())
         cout << "Fail to open the file." << endl;
     else {
-        while (getline(fin, line))
+        while (getline(fin, line)) //Output the game logs recorded in the txt
             cout << line << endl;
     }
     fin.close();
 }
 
-void cash_out_result(int total_games, int win_count, double buy_in, double balance){
+void cash_out_result(int total_games, int win_count, double buy_in, double balance){  //Input the total number of games played, the number of games won by the player, and the initial capital and remaining balance
   ofstream fout;
-  double score = buy_in - balance;
-  fout.open("cash_out_result.txt");
+  double score = buy_in - balance; 
+  fout.open("cash_out_result.txt");  //Enter the total number of games played, the number of games won by the player
   if (fout.fail()){
     cout << "Error in opening the file !" << endl;
     }
@@ -218,7 +217,7 @@ void cash_out_result(int total_games, int win_count, double buy_in, double balan
 }
 
 int main() {
-    int min = 1, max = 208, sum, residual; //range for cards
+    int min = 1, max = 208, sum, residual; //Range for cards
     Player player;
     Banker banker;
     AllocationSystem AC;
@@ -229,53 +228,54 @@ int main() {
     cout << " ~ Game Start" << endl;
     cout << " ~ Please input your buy-in amount: " << endl;
     string input1;
-    getline(cin,input1);
+    getline(cin,input1); //Read the capital entered by the player
     while (InvalidInput(input1))
-        getline(cin,input1);
-    buy_in = stod(input1);
+        getline(cin,input1); 
+    buy_in = stod(input1);  //Changing the type of numbers in the string
     player.balance = buy_in;
     string input2;
-    while (bet != -1) {
+    while (bet != -1) {  
         cout << " ~ Your total balance is: " << player.balance << endl;
         cout << " ~ Place your bet(or input -1 to exit): " << endl;
-        getline(cin,input2);
+        getline(cin,input2);  //Read the bet entered by the player
         if (input2 == "-1")
-            break;
+            break;  //Players choose whether to quit the game
         while (InvalidInput(input2))
             getline(cin,input2);
-        bet = stod(input2);
-        if ( bet <= player.balance && bet > 0){
+        bet = stod(input2);  //Changing the type of numbers in the string
+        if ( bet <= player.balance && bet > 0){  //Determine if the player has a positive bet and enough capital to cover the bet
             cout << "----------Game " << total_games + 1 << "----------" << endl;
-            residual = AC.Remained_cards();
-            cout << "Cards remained: " << residual << endl;
+            residual = AC.Remained_cards();  
+            cout << "Cards remained: " << residual << endl;  //Show the total number of cards remaining
             for (int i = 0; i < 2; i++) {
-                player.add_card(AC.Allocate(min, max, root));
+                player.add_card(AC.Allocate(min, max, root));  //Distributing cards to the player
             }
             for (int i = 0; i < 2; i++) {
-                banker.add_card(AC.Allocate(min, max, root));
+                banker.add_card(AC.Allocate(min, max, root));  //Distributing cards to the banker
             }
+            //The player checks his or her cards and the banker's first card
             cout << " ~ Your card is " << player.get_cards()[0] << ", " << player.get_cards()[1] << " | Your points is: " << player.calculate()<< endl;
             cout << " ~ banker's card is " << banker.get_cards()[0] << ", " << "*" << endl;
             sum = player.calculate();
             if (sum == 21) {
-                cout << " ~ Congradulations! You win with Blackjack! ^_^" << endl;
-                player.balance += 1.5 * bet;
+                cout << " ~ Congradulations! You win with Blackjack! ^_^" << endl;  //The player wins with "Black Jack"
+                player.balance += 1.5 * bet; //The player gains 1.5 times the bet
                 win_count++;
-                //code needs
+                
             }
             else {
-                string surrender;
-                cout << " ~ Choose to surrender?(Input Y or N)" << endl;
-                getline(cin,surrender);
+                string surrender; 
+                cout << " ~ Choose to surrender?(Input Y or N)" << endl;  //The player chooses whether to give up this round of game
+                getline(cin,surrender); 
                 while (surrender != "Y" && surrender != "N"){
                     cout << " ~ Invalid option, please input Y for surrender and N for not surrender." << endl;
                     getline(cin,surrender);
                 }
                 if (surrender == "Y") {
-                    player.balance -= 0.5 * bet;
+                    player.balance -= 0.5 * bet;  //If the player chooses to give up this round of, he/she will lose half of his/her bet
                 }
                 else {
-                    if (banker.get_cards()[0][0] == 'A') {
+                    if (banker.get_cards()[0][0] == 'A') {  //If the banker's first card is an A, then the player may consider whether to buy insurance
                         string insurance;
                         cout << " ~ Buy insurance(Input Y or N): " << endl;
                         getline(cin,insurance);
@@ -286,7 +286,7 @@ int main() {
                         if (insurance == "Y") {
                             if (banker.calculate() != 21) {
                                 cout << " ~ Youe lose the insurance! (T⌓T)" << endl;
-                                player.balance -= bet / 2;
+                                player.balance -= bet / 2; //If the banker is not "Black Jack", then the player loses an additional half of the bet
                                 //codes
                                 codes(min, max, root, bet, &player, &banker, win_count);
                             }
@@ -306,7 +306,7 @@ int main() {
             total_games++; 
             cout << "----------End of game " << total_games <<"----------" << endl;
             residual = AC.Remained_cards();
-            if (residual < 188) {
+            if (residual < 188) {  //If the number of cards remaining is less than 188, we will reshuffle the deck. It prevents the player from remembering the category of the remaining cards
                 root = AC.Initialisation();
                 cout << "Card shuffled" << endl;
             }
@@ -315,7 +315,7 @@ int main() {
             cout << " ~ Insufficient balance. Please choose your bet again." << endl;             
     }
     
-    cash_out_result(total_games, win_count, buy_in, player.balance);
+    cash_out_result(total_games, win_count, buy_in, player.balance); 
     cout << "----------End of the game!----------" << endl;
     string choise;
     cout << " ~ Do you want to check your performance? (Input Y or N)" << endl;
