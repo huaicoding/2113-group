@@ -202,7 +202,7 @@ string AllocationSystem::decrypter(int code) { //The information of card is stor
     return card;
 }
 
-int AllocationSystem::random_generator(int min, int max) {
+int AllocationSystem::random_generator(int min, int max) { //Generate a random code.
     srand((unsigned)time(NULL));
     int range = max - min + 1;
     return rand() % range + min;
