@@ -24,6 +24,8 @@ int main(){
     cout << "           'A' will be considered as 1 point or 11 points" << endl;
     cout << "           '2'-'10' will be considered as 2-10 points" << endl;
     cout << "           'J','Q' and 'K' will be considered as 10 points" << endl;
+    cout << "           For the initial two cards, if one of the cards is an 'A', then it will be treated as 11 points. << endl;
+    cout << "           If the total number of points is greater than 21 points after adding other cards, the 'A' will be treated as 1 points." << endl;
     cout << "           If the sum of the points is great than 21 points, it will be treated as 'Bust'" << endl;
     cout << "" << endl;
     cout << "" << endl;
