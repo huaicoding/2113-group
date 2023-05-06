@@ -326,7 +326,7 @@ int main() {
         getline(cin,choise);
     }
     if (choise == "Y"){
-        cash_in()
+        cash_in();
     }
 
 
