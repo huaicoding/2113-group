@@ -181,6 +181,19 @@ bool InvalidInput(string input){
     return false;
 }
 
+void cash_in() {
+	string line;
+	ifstream fin;
+	fin.open("cash_out_result.txt");
+	if (fin.fail())
+		cout << "Fail to open the file." << endl;
+	else {
+		while (getline(fin, line))
+			cout << line << endl;
+	}
+	fin.close();
+}
+
 void cash_out_result(int total_games, int win_count, double buy_in, double balance){
   ofstream fout;
   double score = buy_in - balance;
