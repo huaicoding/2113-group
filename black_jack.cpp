@@ -103,7 +103,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             hitStand(min, max, root, player);
             results.push_back((*player).calculate());
             if (results[0] > 21 && results[1] > 21) {
-                //两局全爆牌
+                //Both hands are "Bust"
                 cout << " ~ Sorry, you lose (T⌓T)" << endl;
                 (*player).balance -= 2 * bet;
 
