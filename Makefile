@@ -6,7 +6,7 @@ $(Target) : $(OBJ)
 	g++ $(FLAGS) $^ -o $@
 
 %.o: %.cpp
-	g+++ $(FLAGS) -c $<
+	g++ $(FLAGS) -c $<
 
 .PHONY:clean
 
