@@ -103,15 +103,14 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             hitStand(min, max, root, player);
             results.push_back((*player).calculate());
             if (results[0] > 21 && results[1] > 21) {
-                //Both hands are "Bust"
                 cout << " ~ Sorry, you lose (T⌓T)" << endl;
                 (*player).balance -= 2 * bet;
 
             }
             else {
+                Banker_card(min, max, root, banker);
                 for (int i = 0; i < 2; i++) {
-                    cout << "Hand " << i + 1 << endl;
-                    Banker_card(min, max, root, banker);
+                    cout << "`~ Hand " << i + 1 << endl;
                     if (results[i] > 21 && (*banker).calculate() > 21) {
                         cout << " ~ Break even" << endl;
                     }
@@ -133,10 +132,11 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             results.clear();
         }
         else {
+            //codes2
             normProcess(min, max, root, bet, player, banker, win_count);
         }
     }
-    else {
+    else { //codes2
         string double_bet;
         cout << " ~ Double the bet(Input Y or N): " << endl;
         getline (cin, double_bet);
@@ -146,6 +146,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
         }
         if (double_bet == "Y") {
             bet *= 2;
+            //codes need
             (*player).add_card(AC.Allocate(min, max, root));
             // starts to compare. need to repeat the comparision part, which can be put into a function.
             cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " | Your total point: " << (*player).calculate() << endl;
@@ -259,6 +260,7 @@ int main() {
                 cout << " ~ Congradulations! You win with Blackjack! ^_^" << endl;
                 player.balance += 1.5 * bet;
                 win_count++;
+                //code needs
             }
             else {
                 string surrender;
@@ -324,5 +326,7 @@ int main() {
     if (choise == "Y"){
         cash_in();
     }
+
+
     return 0;
 }
