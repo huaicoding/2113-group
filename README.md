@@ -64,7 +64,7 @@ File input/output
 Program codes in multiple files
     We split the program into several files, including player.h, banker.h, and AllocationSystem.h. Player.h stores the functions related to the player and banker.h stores the functions related to the banker. AllocationSystem.h mainly served to allocate cards to the player and the banker randomly. 
 
-------------------------------------------------------------non-standard_libraries---------------------------------------------------------------
+--------------------------------------------------------non-standard_libraries-----------------------------------------------------------
 
 List of non-standard libraries:
 #include <iostream> // used to input and output 
