@@ -15,8 +15,7 @@ int main(){
     cout << "           7.If the banker has less than 17 points, he has to add until he exceeds or equals 17 points" << endl;
     cout << "           8.If neither the player nor the banker have more than 21 points, compare the point sizes and let the person with higher point win and get the bet" << endl;
     cout << "           9.If the banker has more than 21 points and the player has less than 21 points, the player will win the bet directly" << endl;
-    cout << "           10.If the player has more than 21 points and the banker has less than 21 points, the player will lose the bet directly" << endl;
-    cout << "           11.If both the banker and the player have more than 21 points, then push" << endl;
+    cout << "           10.If the player has more than 21 points, the player will lose the bet directly" << endl; 
     cout << "" << endl;
     cout << "" << endl;
 
