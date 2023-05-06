@@ -183,7 +183,7 @@ int AllocationSystem::Remained_cards() { //If more than 120 cards allocated, the
     return residual;
 }
 
-string AllocationSystem::decrypter(int code) {
+string AllocationSystem::decrypter(int code) { //The information of card is stored in the binary search tree as integers. This function is used to decrypte the numerical code into suit and rank
     string card;
     char suit[4] = { 'C', 'H', 'S', 'D' };
     string rank[13] = { "K", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q" };
