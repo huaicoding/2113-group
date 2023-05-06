@@ -167,7 +167,7 @@ BST_Tree* AllocationSystem::Initialisation() { //Used to generate the container 
     return root;
 }
 
-string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) {
+string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) { //Allocate the cards randomly, destroy the node in the tree.
     int target = random_generator(min, max);
     Node* item = root->searchNode(target);
     root->delNode(item);
@@ -183,7 +183,7 @@ int AllocationSystem::Remained_cards() {
     return residual;
 }
 
-string AllocationSystem::decrypter(int code) { // code [1, 208]
+string AllocationSystem::decrypter(int code) {
     string card;
     char suit[4] = { 'C', 'H', 'S', 'D' };
     string rank[13] = { "K", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q" };
