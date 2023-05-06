@@ -109,7 +109,6 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
 
             }
             else {
-                //两个分别比，复制下面252-274，重复两次把两次分别比即可。
                 for (int i = 0; i < 2; i++) {
                     cout << "Hand " << i + 1 << endl;
                     Banker_card(min, max, root, banker);
@@ -134,11 +133,10 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             results.clear();
         }
         else {
-            //codes2
             normProcess(min, max, root, bet, player, banker, win_count);
         }
     }
-    else { //codes2
+    else {
         string double_bet;
         cout << " ~ Double the bet(Input Y or N): " << endl;
         getline (cin, double_bet);
@@ -148,7 +146,6 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
         }
         if (double_bet == "Y") {
             bet *= 2;
-            //codes need
             (*player).add_card(AC.Allocate(min, max, root));
             // starts to compare. need to repeat the comparision part, which can be put into a function.
             cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " | Your total point: " << (*player).calculate() << endl;
@@ -262,7 +259,6 @@ int main() {
                 cout << " ~ Congradulations! You win with Blackjack! ^_^" << endl;
                 player.balance += 1.5 * bet;
                 win_count++;
-                //code needs
             }
             else {
                 string surrender;
@@ -328,7 +324,5 @@ int main() {
     if (choise == "Y"){
         cash_in();
     }
-
-
     return 0;
 }
