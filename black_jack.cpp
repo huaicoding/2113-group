@@ -246,7 +246,8 @@ int main() {
         bet = stod(input2);
         if ( bet <= player.balance && bet > 0){
             cout << "----------Game " << total_games + 1 << "----------" << endl;
-            AC.Remained_cards();
+            residual = AC.Remained_cards();
+            cout << "Cards remained: " << residual << endl;
             for (int i = 0; i < 2; i++) {
                 player.add_card(AC.Allocate(min, max, root));
             }
