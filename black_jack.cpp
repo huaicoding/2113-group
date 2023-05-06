@@ -32,6 +32,7 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {  //Input the 
     }
 }
 
+//Compare the number of points between the player's cards and the banker's cards
 int comparison(int player, int banker, double bet, int& win_count) { //Input the number of points in the player's hand and the number of points in the dealer's hand. Input the player's bet and the number of games won
     if (player > banker) {  //The player's points are greater than the banker's points
         cout << " ~ Congratulations! You win! ^_^" << endl;
