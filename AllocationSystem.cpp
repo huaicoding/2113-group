@@ -157,7 +157,7 @@ void BST_Tree::destroy(BST_Tree* currentNode) {
     delete currentNode;
 }
 
-BST_Tree* AllocationSystem::Initialisation() {
+BST_Tree* AllocationSystem::Initialisation() { //Used to generate the container of cards
     count = 0;
     int max = 208;
     int min = 1;
