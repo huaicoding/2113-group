@@ -44,8 +44,7 @@ int main(){
     cout << "           The two hands are played out independently, and the bet on each hand is won or lost independently." << endl;
     cout << "" << endl;
     cout << "       Black Jack -- 21 points: " << endl;
-    cout << "           If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly unless the banker also has one." << endl;
-    cout << "           In the caes of a tie, bets are returned without adjustment." << endl;
+    cout << "           If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly." << endl;
     cout << "           A 'Black Jack' beats any hand that is not a 'Black Jack', even one with the point of 21" << endl;
     cout << "" << endl;
     cout << "-----------------------------------------------------------------------------------------------------------------------------" << endl;
