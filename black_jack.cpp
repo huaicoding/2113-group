@@ -178,7 +178,7 @@ bool InvalidInput(string input){
         return false;   
     }
     catch(...){
-        cout << " ~ Insufficient balance. Please choose your bet again." << endl;
+        cout << " ~ Invalid input. Please input a number." << endl;
     }
     return true;
 }
@@ -299,5 +299,20 @@ int main() {
         else if (bet != -1)
             cout << " ~ Insufficient balance. Please choose your bet again." << endl;        
     }
+    
+    cash_out_result(total_games, win_count, buy_in, player.balance);
+    cout << "----------End of the game!----------" << endl;
+    string choise;
+    cout << " ~ Do you want to check your performance? (Input Y or N)" << endl;
+    cin >> choise;
+    while (choise != "Y" && choise != "N"){
+        cout << "Invalid input, please input again." << endl;
+        cin >> choise;
+    }
+    if (choise == "Y"){
+        
+    }
+
+
     return 0;
 }
