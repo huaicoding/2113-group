@@ -253,7 +253,7 @@ int main() {
             for (int i = 0; i < 2; i++) {
                 banker.add_card(AC.Allocate(min, max, root));
             }
-            cout << " ~ Your card is " << player.get_cards()[0] << ", " << player.get_cards()[1] << " | Your points is:" << player.calculate()<< endl;
+            cout << " ~ Your card is " << player.get_cards()[0] << ", " << player.get_cards()[1] << " | Your points is: " << player.calculate()<< endl;
             cout << " ~ banker's card is " << banker.get_cards()[0] << ", " << "*" << endl;
             sum = player.calculate();
             if (sum == 21) {
