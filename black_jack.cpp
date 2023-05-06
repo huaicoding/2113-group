@@ -84,6 +84,10 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
         string split;
         cout << " ~ Split the card(Input Y or N): " << endl;
         cin >> split;
+        while (split != "Y" && split != "N"){
+            cout << " ~ Invalid option, please input Y for split and N for not split." << endl;
+            cin >> split;
+        }
         if (split == "Y") {
             // codes for split play
             vector<int> results;
@@ -135,6 +139,10 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
         string double_bet;
         cout << " ~ Double the bet(Input Y or N): " << endl;
         cin >> double_bet;
+        while (double_bet != "Y" && double_bet != "N"){
+            cout << " ~ Invalid option, please input Y for double and N for not double." << endl;
+            cin >> double_bet;
+        }
         if (double_bet == "Y") {
             bet *= 2;
             //codes need
@@ -162,6 +170,17 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
     }
 }
 
+bool InvalidInput(string input){
+    double num;
+    try{
+        num= stod(input);
+        return false;   
+    }
+    catch(...){
+        cout << " ~ Insufficient balance. Please choose your bet again." << endl;
+    }
+    return true;
+}
 
 int main() {
     int min = 1, max = 208, sum; //参数范围？
@@ -170,16 +189,23 @@ int main() {
     AllocationSystem AC;
     double buy_in, bet = 0;
     int total_games = 0, win_count = 0;
+    string input;
     BST_Tree* root = AC.Initialisation();
     cout << "----- Welcome to HKU Blackjack game! ----- " << endl;
     cout << " ~ Game Start" << endl;
     cout << " ~ Please input your buy-in amount: " << endl;
-    cin >> buy_in;
+    cin >> input;
+    while (InvalidInput(input))
+        cin >> input;
+    buy_in = stod(input);
     player.balance = buy_in;
     while (bet != -1) {
         cout << " ~ Your total balance is: " << player.balance << endl;
         cout << " ~ Place your bet(or input -1 to exit): " << endl;
-        cin >> bet;
+        cin >> input;
+        while (InvalidInput(input))
+            cin >> input;
+        bet = stod(input);
         if ( bet <= player.balance && bet > 0){
             cout << "----------Game " << total_games + 1 << "----------" << endl;
             for (int i = 0; i < 2; i++) {
@@ -201,6 +227,10 @@ int main() {
                 string surrender;
                 cout << " ~ Choose to surrender?(Input Y or N)" << endl;
                 cin >> surrender;
+                while (surrender != "Y" && surrender != "N"){
+                    cout << " ~ Invalid option, please input Y for surrender and N for not surrender." << endl;
+                    cin >> surrender;
+                }
                 if (surrender == "Y") {
                     player.balance -= 0.5 * bet;
                 }
@@ -209,6 +239,10 @@ int main() {
                         string insurance;
                         cout << " ~ Buy insurance(Input Y or N): " << endl;
                         cin >> insurance;
+                        while (insurance != "Y"&& insurance != "N"){
+                            cout << " ~ Invalid option, please input Y for buying and N for not buying insurance." << endl;
+                            cin >> insurance;
+                        }
                         if (insurance == "Y") {
                             if (banker.calculate() != 21) {
                                 cout << " ~ Youe lose the insurance!" << endl;
@@ -233,7 +267,7 @@ int main() {
             cout << "----------End of game " << total_games <<"----------" << endl;
         }
         else if (bet != -1)
-            cout << " ~ Insufficient balance. Please choose your bet again." << endl;
+            cout << " ~ Insufficient balance. Please choose your bet again." << endl;        
     }
     return 0;
 }
