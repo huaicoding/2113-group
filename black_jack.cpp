@@ -229,18 +229,24 @@ int main() {
     cout << "----- Welcome to HKU Blackjack game! ----- " << endl;
     cout << " ~ Game Start" << endl;
     cout << " ~ Please input your buy-in amount: " << endl;
+    cin.get();
     getline(cin,input);
-    while (InvalidInput(input))
+    while (InvalidInput(input)){
+	cin.get();    
         getline(cin,input);
+    }
     _buy_in = stoi(input);
     buy_in = _buy_in;
     player.balance = buy_in;
     while (bet != -1) {
         cout << " ~ Your total balance is: " << player.balance << endl;
         cout << " ~ Place your bet(or input -1 to exit): " << endl;
+	cin.get();
         getline(cin,input);
-        while (InvalidInput(input))
+        while (InvalidInput(input)){
+            cin.get();
             getline(cin,input);
+	}
         _bet = stoi(input);
 	bet = _bet;
         if ( bet <= player.balance && bet > 0){
