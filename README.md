@@ -6,7 +6,7 @@ Wu Jingbo UID:3035845045
 Huai Chengtian UID:3035845978
 Fong Chi Hong UID:3035923330
 
-------------------------------------------------------------Rules------------------------------------------------------------
+------------------------------------------------------------Rules----------------------------------------------------------
 
 Process: 
            1.Shuffle the cards
@@ -50,8 +50,22 @@ Special Rules:
            In the caes of a tie, bets are returned without adjustment.
            A 'Black Jack' beats any hand that is not a 'Black Jack', even one with the point of 21
 
------------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------Features-------------------------------------------------------
 
+Random number
+    We generate a random number to randomly select the card from the pile each time the player and banker hit cards. The range of the random number will decrease after hitting cards.
+Data
+    We use a binary tree to store the whole card deck. After each random number is generated, the program will search for the corresponding tree node and delete that node. 
+
+    Besides, we use string vectors to store player’s cards and banker’s cards. 
+Dynamic memory management
+    The binary tree we use to store the card deck applies dynamic memory management. 
+File input/output
+    After each game, we will record the status of the game in the file “cash_out_result.txt”, such as games the player wins, games the player plays, and the cash the player wins/lost. And the player can choose whether to see the game status, which we will apply File-Input.
+Program codes in multiple files
+    We split the program into several files, including player.h, banker.h, and AllocationSystem.h. Player.h stores the functions related to the player and banker.h stores the functions related to the banker. AllocationSystem.h mainly served to allocate cards to the player and the banker randomly. 
+
+---------------------------------------------------------------------------------------------------------------------------
 List of non-standard libraries:
 #include <iostream> // used to input and output 
 #include <string> // used to use data type string
