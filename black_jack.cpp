@@ -110,7 +110,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             else {
                 Banker_card(min, max, root, banker);
                 for (int i = 0; i < 2; i++) {
-                    cout << "`~ Hand " << i + 1 << endl;
+                    cout << " ~ Hand " << i + 1 << endl;
                     if (results[i] > 21 && (*banker).calculate() > 21) {
                         cout << " ~ Break even" << endl;
                     }
