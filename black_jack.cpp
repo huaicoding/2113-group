@@ -50,11 +50,12 @@ int comparison(int player, int banker, double bet, int& win_count) { //Input the
     return 0;
 }
 
-void Banker_card(int& min, int& max, BST_Tree* root, Banker* banker) {
+//A function of the logic of the banker's draw
+void Banker_card(int& min, int& max, BST_Tree* root, Banker* banker) {  //Input the maximum and minimum values of the current card. Generate a root of the BST. Input the information of the banker
     AllocationSystem AC;
-    cout << "banker's cards: " << (*banker).get_cards()[0] << ", " << (*banker).get_cards()[1] << endl;
-    while ((*banker).calculate() < 17) {
-        (*banker).add_card(AC.Allocate(min, max, root));
+    cout << "banker's cards: " << (*banker).get_cards()[0] << ", " << (*banker).get_cards()[1] << endl;  //Showing the banker's first card
+    while ((*banker).calculate() < 17) { //If the banker has less than 17 points, he has to add until he exceeds or equals 17 points
+        (*banker).add_card(AC.Allocate(min, max, root)); // Distribute cards to the banker
         cout << "New card: " << (*banker).get_cards()[(*banker).get_cards().size() - 1] << " | Banker's total point: " << (*banker).calculate() << endl;
     }
 }
