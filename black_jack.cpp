@@ -207,7 +207,7 @@ void cash_out_result(int total_games, int win_count, double buy_in, double balan
 }
 
 int main() {
-    int min = 1, max = 208, sum, residual; //参数范围？
+    int min = 1, max = 208, sum, residual; //range for cards
     Player player;
     Banker banker;
     AllocationSystem AC;
