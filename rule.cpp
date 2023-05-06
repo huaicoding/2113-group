@@ -45,7 +45,7 @@ int main(){
     cout << "" << endl;
     cout << "       Black Jack -- 21 points: " << endl;
     cout << "           If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly." << endl;
-    cout << "           A 'Black Jack' beats any hand that is not a 'Black Jack', even one with the point of 21" << endl;
+    cout << "           A 'Black Jack' beats any hand, even one with the point of 21" << endl;
     cout << "" << endl;
     cout << "-----------------------------------------------------------------------------------------------------------------------------" << endl;
 
