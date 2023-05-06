@@ -34,12 +34,12 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {
 
 int comparison(int player, int banker, double bet, int& win_count) {
     if (player > banker) {
-        cout << " ~ Congratulations! You win!" << endl;
+        cout << " ~ Congratulations! You win! ^_^" << endl;
         win_count++;
         return bet;
     }
     else if (player < banker) {
-        cout << " ~ Sorry, you lose" << endl;
+        cout << " ~ Sorry, you lose (T⌓T)" << endl;
         return -bet;
     }
     else {
@@ -61,13 +61,13 @@ void Banker_card(int& min, int& max, BST_Tree* root, Banker* banker) {
 void normProcess(int& min, int& max, BST_Tree* root, double bet, Player* player, Banker* banker, int& win_count) {
     hitStand(min, max, root, player);
     if ((*player).calculate() > 21) {
-        cout << " ~ Sorry, you lose" << endl;
+        cout << " ~ Sorry, you lose (T⌓T)" << endl;
         (*player).balance -= bet;
     }
     else {
         Banker_card(min, max, root, banker);
         if ((*banker).calculate() > 21) {
-            cout << " ~ Congratulations! You win!" << endl;
+            cout << " ~ Congratulations! You win! ^_^" << endl;
             (*player).balance += bet;
             win_count++;
         }
@@ -102,7 +102,7 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
             results.push_back((*player).calculate());
             if (results[0] > 21 && results[1] > 21) {
                 //两局全爆牌
-                cout << " ~ Sorry, you lose" << endl;
+                cout << " ~ Sorry, you lose (T⌓T)" << endl;
                 (*player).balance -= 2 * bet;
 
             }
@@ -115,11 +115,11 @@ void codes(int& min, int& max, BST_Tree* root, double bet, Player* player, Banke
                         cout << " ~ Break even" << endl;
                     }
                     else if (results[i] > 21 && (*banker).calculate() <= 21) {
-                        cout << " ~ Sorry, you lose" << endl;
+                        cout << " ~ Sorry, you lose (T⌓T)" << endl;
                         (*player).balance -= bet;
                     }
                     else if (results[i] <= 21 && (*banker).calculate() > 21) {
-                        cout << " ~ Congratulations! You win!" << endl;
+                        cout << " ~ Congratulations! You win! ^_^" << endl;
                         (*player).balance += bet;
                         win_count++;
                     }
@@ -207,7 +207,7 @@ void cash_out_result(int total_games, int win_count, double buy_in, double balan
 }
 
 int main() {
-    int min = 1, max = 208, sum; //参数范围？
+    int min = 1, max = 208, sum, residual; //参数范围？
     Player player;
     Banker banker;
     AllocationSystem AC;
@@ -243,7 +243,7 @@ int main() {
             cout << " ~ banker's card is " << banker.get_cards()[0] << ", " << "*" << endl;
             sum = player.calculate();
             if (sum == 21) {
-                cout << " ~ Congradulations! You win with Blackjack!" << endl;
+                cout << " ~ Congradulations! You win with Blackjack! ^_^" << endl;
                 player.balance += 1.5 * bet;
                 win_count++;
                 //code needs
@@ -270,7 +270,7 @@ int main() {
                         }
                         if (insurance == "Y") {
                             if (banker.calculate() != 21) {
-                                cout << " ~ Youe lose the insurance!" << endl;
+                                cout << " ~ Youe lose the insurance! (T⌓T)" << endl;
                                 player.balance -= bet / 2;
                                 //codes
                                 codes(min, max, root, bet, &player, &banker, win_count);
