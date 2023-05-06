@@ -6,7 +6,7 @@ Wu Jingbo UID:3035845045
 Huai Chengtian UID:3035845978
 Fong Chi Hong UID:3035923330
 
-------------------------------------------------------------Rules----------------------------------------------------------
+------------------------------------------------------------Rules------------------------------------------------------------
 
 Process: 
            1.Shuffle the cards
@@ -49,7 +49,7 @@ Special Rules:
            If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly.
            A 'Black Jack' beats any hand, even one with the point of 21
 
-------------------------------------------------------------Features-------------------------------------------------------
+------------------------------------------------------------Features---------------------------------------------------------
 
 Random number
     We generate a random number to randomly select the card from the pile each time the player and banker hit cards. The range of the random number will decrease after hitting cards.
@@ -64,7 +64,8 @@ File input/output
 Program codes in multiple files
     We split the program into several files, including player.h, banker.h, and AllocationSystem.h. Player.h stores the functions related to the player and banker.h stores the functions related to the banker. AllocationSystem.h mainly served to allocate cards to the player and the banker randomly. 
 
----------------------------------------------------------------------------------------------------------------------------
+------------------------------------------------------------non-standard_libraries---------------------------------------------------------------
+
 List of non-standard libraries:
 #include <iostream> // used to input and output 
 #include <string> // used to use data type string
@@ -73,3 +74,10 @@ List of non-standard libraries:
 #include <time.h> // used to generate random number
 #include <fstream> // used to support file in/out
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+To compile the codes, you should tape “make” in the terminal, and the system will compile the main file and head files together.
+
+As for the execution, you may type “./black_jack” in the terminal and follow the instructions of the program.
+
+-----------------------------------------------------------------------------------------------------------------------------
