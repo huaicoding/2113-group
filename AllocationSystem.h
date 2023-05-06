@@ -24,14 +24,12 @@ private:
     Node* RR_Rotation(Node* k1);
     Node* LR_Rotation(Node* k3);
     Node* RL_Rotation(Node* k1);
-    void print(Node* currentNode);
 public:
     BST_Tree();
     void insertNode(int code);
     void delNode(Node* node);
     Node* searchNode(int code);
     void destroy(BST_Tree* currentNode);
-    void print();
 };
 
 class AllocationSystem : public BST_Tree {
