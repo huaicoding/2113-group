@@ -32,17 +32,17 @@ void hitStand(int min, int& max, BST_Tree* root, Player* player) {  //Input the 
     }
 }
 
-int comparison(int player, int banker, double bet, int& win_count) { 
-    if (player > banker) {
+int comparison(int player, int banker, double bet, int& win_count) { //Input the number of points in the player's hand and the number of points in the dealer's hand. Input the player's bet and the number of games won
+    if (player > banker) {  //The player's points are greater than the banker's points
         cout << " ~ Congratulations! You win! ^_^" << endl;
-        win_count++;
+        win_count++; 
         return bet;
     }
-    else if (player < banker) {
+    else if (player < banker) {  //The player's points are less than the banker's points
         cout << " ~ Sorry, you lose (T⌓T)" << endl;
         return -bet;
     }
-    else {
+    else {  //The player's points are equal to the banker's points
         cout << " ~ Break even" << endl;
         return 0;
     }
