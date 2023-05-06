@@ -173,6 +173,7 @@ string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) {
     root->delNode(item);
     string card = decrypter(target);
     count++;
+    max--;
     return card;
 }
 
