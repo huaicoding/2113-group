@@ -6,15 +6,15 @@ using namespace std;
 
 void Banker :: add_card(string card){
     cards.push_back(card);
-}
+} // add one card to banker's cards
 
 void Banker :: clear_cards(){
     cards.clear();
-}
+} // clear all cards that banker holds
 
 vector<string> Banker :: get_cards(){
     return cards;
-}
+} // return a vector string, which contains the cards that banker holds
 
 int Banker::calculate() {
     int sum = 0;
@@ -38,5 +38,5 @@ int Banker::calculate() {
         count--;
     }
     return sum;
-}
+} // calculate the total points of the cards that banker holds
 
