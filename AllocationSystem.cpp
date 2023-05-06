@@ -158,6 +158,7 @@ void BST_Tree::destroy(BST_Tree* currentNode) {
 }
 
 BST_Tree* AllocationSystem::Initialisation() {
+    count = 0;
     int max = 208;
     int min = 1;
     BST_Tree* root = new BST_Tree();
@@ -166,28 +167,21 @@ BST_Tree* AllocationSystem::Initialisation() {
     return root;
 }
 
-string AllocationSystem::Allocate(int min, int& max, BST_Tree* &root) {
-    if (count < 60){
-        count++;
-        return allocate(min, max, root);
-    }
-    else {
-        count = 1;
-        destroy(root);
-        root = Initialisation();
-        return allocate(min, max, root);
-    }
-}
-
-string AllocationSystem::allocate(int min, int &max, BST_Tree* &root) {
+string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) {
     int target = random_generator(min, max);
     Node* item = root->searchNode(target);
     root->delNode(item);
     string card = decrypter(target);
     max--;
+    count++;
     return card;
 }
 
+int AllocationSystem::Remained_cards() {
+    int residual = 208 - count;
+    cout << "Card reamined: " << residual << endl;
+    return residual;
+}
 
 string AllocationSystem::decrypter(int code) { // code [1, 208]
     string card;
