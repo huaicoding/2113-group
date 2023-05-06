@@ -99,19 +99,6 @@ Node* BST_Tree::maximum(Node * currentNode) {
         return maximum(currentNode->right);
 }
 
-void BST_Tree::print(Node* currentNode) {
-    if (currentNode == NULL) {
-        return;
-    }
-    print(currentNode->left);
-    cout<<currentNode->code<<' ';
-    print(currentNode->right);
-}
-
-void BST_Tree::print() {
-    print(root);
-}
-
 int BST_Tree::height(Node* currentNode) {
     if (currentNode != NULL)
         return currentNode->height;
