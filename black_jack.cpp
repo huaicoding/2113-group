@@ -232,6 +232,7 @@ int main() {
         bet = stod(input);
         if ( bet <= player.balance && bet > 0){
             cout << "----------Game " << total_games + 1 << "----------" << endl;
+            AC.Remained_cards();
             for (int i = 0; i < 2; i++) {
                 player.add_card(AC.Allocate(min, max, root));
             }
@@ -289,6 +290,11 @@ int main() {
             banker.clear_cards();
             total_games++; 
             cout << "----------End of game " << total_games <<"----------" << endl;
+            residual = AC.Remained_cards();
+            if (residual < 188) {
+                root = AC.Initialisation();
+                cout << "Card shuffled" << endl;
+            }
         }
         else if (bet != -1)
             cout << " ~ Insufficient balance. Please choose your bet again." << endl;        
