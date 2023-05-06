@@ -36,11 +36,11 @@ public:
 
 class AllocationSystem : public BST_Tree {
 public:
-   BST_Tree* Initialisation();
-    string Allocate(int min, int& max, BST_Tree* &root);
+    BST_Tree* Initialisation();
+    string Allocate(int min, int& max, BST_Tree*& root);
+    int Remained_cards();
 private:
-   string decrypter(int code);
-    string allocate(int min, int& max, BST_Tree* &root);
+    string decrypter(int code);
     int random_generator(int min, int max);
     int count = 0;
 };
