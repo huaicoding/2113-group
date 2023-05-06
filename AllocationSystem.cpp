@@ -167,7 +167,7 @@ BST_Tree* AllocationSystem::Initialisation() { //Used to generate the container 
     return root;
 }
 
-string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) { //Allocate the cards randomly, destroy the node in the tree.
+string AllocationSystem::Allocate(int min, int &max, BST_Tree* &root) { //Allocate the cards randomly, destroy the node in the tree, return a string type card with suit+rank.
     int target = random_generator(min, max);
     Node* item = root->searchNode(target);
     root->delNode(item);
@@ -185,7 +185,7 @@ int AllocationSystem::Remained_cards() { //If more than 120 cards allocated, the
 
 string AllocationSystem::decrypter(int code) { //The information of card is stored in the binary search tree as integers. This function is used to decrypte the numerical code into suit and rank
     string card;
-    char suit[4] = { 'C', 'H', 'S', 'D' };
+    char suit[4] = { 'C', 'H', 'S', 'D' }; //Club, Heart, Spade, Diamond
     string rank[13] = { "K", "A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q" };
     if (code % 13 != 0) {
         int s = (code / 13 + 1) % 4;
