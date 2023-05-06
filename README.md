@@ -46,9 +46,8 @@ Special Rules:
            The two hands are played out independently, and the bet on each hand is won or lost independently.
 
        Black Jack -- 21 points: 
-           If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly unless the banker also has one.
-           In the caes of a tie, bets are returned without adjustment.
-           A 'Black Jack' beats any hand that is not a 'Black Jack', even one with the point of 21
+           If the sum of the player's first two cards is 21 points, it is a 'Black Jack'. The player wins immediaterly.
+           A 'Black Jack' beats any hand, even one with the point of 21
 
 ------------------------------------------------------------Features-------------------------------------------------------
 
