@@ -7,14 +7,16 @@ using namespace std;
 void Player :: add_card(string card){
     cards.push_back(card);
 }
-
+// add one card to the cards that player holds
 vector<string> Player :: get_cards(){
     return cards;
 }
+// get the cards that player holds, which is in form of a vector string
 
 void Player :: clear_cards(){
     cards.clear();
 }
+// clear all the cards that the player holds
 
 int Player::calculate() {
     int sum = 0;
@@ -38,7 +40,7 @@ int Player::calculate() {
         count--;
     }
     return sum;
-}
+} // calculate the total points of the cards that player holds
 
 
 void Player :: keep_first(){
