@@ -51,10 +51,10 @@ Special Rules:
 
 ------------------------------------------------------------Features---------------------------------------------------------
 
-Random number:
+Random number;
     We generate a random number to randomly select the card from the pile each time the player and banker hit cards. The range of the random number will decrease after hitting cards.
 
-Data:
+Data;
     We use a binary tree to store the whole card deck. After each random number is generated, the program will search for the corresponding tree node and delete that node.
 
     Besides, we use string vectors to store player’s cards and banker’s cards.
