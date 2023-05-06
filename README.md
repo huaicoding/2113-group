@@ -51,3 +51,12 @@ Special Rules:
            A 'Black Jack' beats any hand that is not a 'Black Jack', even one with the point of 21
 
 -----------------------------------------------------------------------------------------------------------------------------
+
+List of non-standard libraries:
+#include <iostream> // used to input and output 
+#include <string> // used to use data type string
+#include <sstream> // used to support function istringstream
+#include <vector> // to support the usage of vector
+#include <time.h> // used to generate random number
+#include <fstream> // used to support file in/out
+
