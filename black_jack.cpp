@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 #include <sstream>
-#include <vector> 
+#include <vector>
 #include <stdlib.h>
 #include <typeinfo>
-#include <time.h> 
-#include <fstream> 
+#include <time.h>
+#include <fstream>
 #include "player.h"
 #include "banker.h"
 #include "AllocationSystem.h"
