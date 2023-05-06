@@ -11,18 +11,19 @@
 #include "AllocationSystem.h"
 using namespace std;
 
-void hitStand(int min, int& max, BST_Tree* root, Player* player) {  
-    AllocationSystem AC;
+//Function to choose to add or stop adding cards
+void hitStand(int min, int& max, BST_Tree* root, Player* player) {  //Input the maximum and minimum values of the current card. Generate a root of the BST. Input the information of the player
+    AllocationSystem AC;  
     cout << " ~ Please chooose an action: hit/stand" << endl;
     string action;
-    while ((*player).calculate() < 21) {
-        getline(cin,action);
+    while ((*player).calculate() < 21) {  //If the player's hand is not greater than 21 points, the player will be given the option to add or stop adding cards
+        getline(cin,action);  //Read the input of the player's actions
         if (action == "hit") {
-            (*player).add_card(AC.Allocate(min, max, root));
-            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " | Your total point: " << (*player).calculate() << endl;
+            (*player).add_card(AC.Allocate(min, max, root));  //Distribute a card to the player
+            cout << "New card: " << (*player).get_cards()[(*player).get_cards().size() - 1] << " | Your total point: " << (*player).calculate() << endl;  //  Show the newly assigned card and calculate the total points of the current hand
         }
         else if (action == "stand") {
-            cout << "Total point: " << (*player).calculate() << endl;
+            cout << "Total point: " << (*player).calculate() << endl;  //Displaying and calculating the player's hand points
             break;
         }
         else {
